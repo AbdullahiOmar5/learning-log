@@ -1,0 +1,48 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+  <h2 class="text-left mb-2">Create a new account</h2>
+{% endblock page_header %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+  <div style="width: 100%;">
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        Please fix the errors below.
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'users:register' %}">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" id="id_username" placeholder="Username" required>
+        {% if form.username.errors %}
+          <div class="text-danger small">{{ form.username.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password1" class="form-label">Password</label>
+        <input type="password" name="password1" class="form-control" id="id_password1" placeholder="Password" required>
+        {% if form.password1.errors %}
+          <div class="text-danger small">{{ form.password1.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password2" class="form-label">Confirm Password</label>
+        <input type="password" name="password2" class="form-control" id="id_password2" placeholder="Confirm Password" required>
+        {% if form.password2.errors %}
+          <div class="text-danger small">{{ form.password2.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-secondary">Register</button>
+      <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+    </form>
+  </div>
+</div>
+{% endblock content %}
