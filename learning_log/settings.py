@@ -1,3 +1,6 @@
+import os
+import dj_database_url
+
 """
 Django settings for learning_log project.
 
@@ -25,7 +28,7 @@ SECRET_KEY = "django-insecure-en1!7#qm$*c%@&-*s=hul_m%xuds^@+0593x3lt&9m0yqrc27^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [""]
 
 
 # Application definition
@@ -117,6 +120,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -126,6 +132,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # My settings
 LOGIN_URL = 'users:login'
 
-# Heroku settings.
-import django_heroku
-django_heroku.settings(locals())
